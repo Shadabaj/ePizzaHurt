@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PizzaHut.Core.Entities.Item>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@await Component.InvokeAsync("PizzaMenu")
+<h1>Pizza, Beverages, Drinks</h1>
+
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="col-sm-4 mb-3">
+            <div class="card">
+                <img src="@item.ImageUrl" cc>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name
+                        <span class="float-end font-20">
+                            <b>₹</b>
+                            @item.UnitPrice</span>
+                    </h5>
+                    <p class="card-text">@item.Description</p>
+                    <a href="javascript:void(0)" onclick="AddToCart('@item.Id', '@item.Name', @item.UnitPrice, 1)"
+                       class="btn btn-primary"> Add To Cart </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="toast" id="ToastCart">
+    <div class="toast-header">
+        <strong class="me-auto">Notification</strong>   
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+
+

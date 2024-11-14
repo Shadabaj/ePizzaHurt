@@ -1,0 +1,83 @@
+﻿@model PizzaHurt.UI.Models.ItemModel
+
+@{
+    ViewData["Title"] = Model != null ? "Edit" :"Create";
+}
+
+<h4>@ViewData["Title"] Menu</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="@ViewData["Title"]" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                
+                <input type="hidden" asp-for="Id" class="form-control" />
+              
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                    <label asp-for="File" class="control-label"></label>
+                    <input type="File" asp-for="File" class="form-control" style="border:none; padding:.375rem 0" />
+                    <br>
+                    <!-- Image preview -->
+                    <span asp-validation-for="File" class="text-danger"></span>
+                    @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <input type="hidden" asp-for="ImageUrl" />
+                        <img id="itemImage" src="@Model.ImageUrl" style="width:200px" @* height="100" width="200" style="border:1px solid" *@ />
+                    }
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                    <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.categories,"Id","Name"))">
+                        <option value="">---SELECT---</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                    <label asp-for="ItemTypeId" class="control-label"></label>
+                    <select asp-for="ItemTypeId" class="form-control" asp-items="@ViewBag.itemtype">
+                        <option value="">---SELECT---</option>
+                    </select>
+                <span asp-validation-for="ItemTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                    &nbsp; <a asp-action="Index" asp-controller="Item" class="btn btn-warning">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts 
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+

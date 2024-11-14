@@ -1,0 +1,46 @@
+﻿@model PizzaHurt.UI.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="border rounded p-3">
+                <div class="text-center">
+                    <h1 class="text-primary" style="--bs-text-opacity: .5;">Login</h1>
+                    <img src="~/images/working.png" style="width:100px" class="mx-auto rounded" alt="...">
+                </div>
+                <hr />
+            <form asp-action="Login" asp-antiforgery="true" asp-route-returnUrl="@Context.Request.Query["returnUrl"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-outline-primary"/>&nbsp;
+                <a asp-controller="Home" asp-area="" asp-action="Index" class="btn btn-outline-secondary">Back</a>
+                 
+            </div>&nbsp;
+
+                <div class="form-group">
+                    <a asp-controller="Account" asp-action="GoogleLogin" asp-area="" class="btn btn-danger">Login with Google</a>
+                </div>
+
+        </form>
+    </div>
+</div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

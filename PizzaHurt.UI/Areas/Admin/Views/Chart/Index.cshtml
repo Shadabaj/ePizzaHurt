@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<p>
+    <div class="row">
+        <div class="col-1">
+            <label><b>Chart-Type</b></label>
+        </div>
+
+        <div class="col-2">
+            <Select id="ChartType" class="form-control" style="width:150px">
+                <option selected>--SELECT CHART TYPE--</option>
+                <option>bar</option>
+                <option>line</option>
+                <option>pie</option>
+                <option>doughnut</option>
+            </Select>
+        </div>
+        <div class="col-4">
+            <input id="ID" value="Show Graph" type="button" />
+        </div>
+    </div>
+</p>
+
+
+
+<div id="chartContainer">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ID").click(function () {
+
+            var chartType = $('#ChartType').val();
+            var chartView = document.getElementById('myChart'); //  To Reset the Canvas HTML Every Time
+
+            chartContainer.innerHTML = '&nbsp'; //RESETTING
+            //Create the New Canvas
+            $('#chartContainer').append('<canvas id="myChart" style="max-width:750px;max-height:400px;"></canvas>');
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Cart/GetSalesData",
+                data: "",
+                contentType: "application/json; charset=utf-8", // Fixed typo
+                dataType: "json",
+                success: OnSuccessResult,
+                error: onError // Changed to correct function name
+            });
+
+            function OnSuccessResult(data) {
+
+
+                var _data = data;
+                var _chartLabels = _data[0];
+                var _chartData = _data[1];
+                var barcolor = ["violet", "indigo", "blue", "green", "yellow", "orange", "red", "pink", "black", "grey"];
+                // Do something with _data
+                new Chart("myChart", {
+                    // type: "bar",
+                    type: chartType,
+                    data: {
+                        labels: _chartLabels,
+                        datasets: [{
+                            backgroundColor: barcolor,
+                            data: _chartData // Fixed typo
+                        }]
+                    }
+                });
+            }
+
+            function onError(err) {
+                // Handle error
+            }
+        });
+    });
+</script>

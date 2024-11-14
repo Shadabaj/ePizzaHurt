@@ -1,0 +1,57 @@
+﻿@model PizzaHut.Core.Entities.PaymentDetail
+
+<div>
+    <h4><strong>Receipt</strong></h4>
+    <hr />
+     <table id="receiptDetails" class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row" style="width: 150px;">Id</th>
+                <td>@Html.DisplayFor(model => model.Id)</td>
+            </tr>
+            <tr>
+                <th scope="row">TransactionId</th>
+                <td>@Html.DisplayFor(model => model.TransactionId)</td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <th scope="row">Status</th>
+                <td>@Html.DisplayFor(model => model.Status)</td>
+            </tr>
+            <tr>
+                <th scope="row">CartId</th>
+                <td>@Html.DisplayFor(model => model.CartId)</td>
+            </tr>
+            <tr>
+                <th scope="row">GrandTotal</th>
+                <td>@Html.DisplayFor(model => model.Currency) @Html.DisplayFor(model => model.GrandTotal)</td>
+            </tr>
+            <tr>
+                <th scope="row">CreatedDate</th>
+                <td>@Html.DisplayFor(model => model.CreatedDate)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>  
+    <a asp-action="Index" asp-area="User" asp-controller="Home" class="btn btn-primary">DashBoard</a>
+    <button onclick="printReceipt()" class="btn btn-outline-secondary">Print Receipt</button>
+</div>
+
+
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+<script>
+    function printReceipt() {
+        printJS({
+            printable: 'receiptDetails',
+            type: 'html',
+            header: 'Receipt',
+            documentTitle: 'Receipt' + '@Html.DisplayFor(model => model.TransactionId)',
+        });
+    }
+</script>

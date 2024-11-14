@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RazorPay.Core" Version="1.0.2" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaHurt.Models\PizzaHurt.Models.csproj" />
+    <ProjectReference Include="..\PizzaHurt.Repositories\PizzaHurt.Repositories.csproj" />
+	
+  </ItemGroup>
+
+</Project>
